@@ -91,10 +91,11 @@ public class TextBar {
             String msg = "";
             for(int i=0;i<title.length();i++) {
                 if(paint.measureText(msg+title.charAt(i)) > 2*w/3) {
-                    msg += title.charAt(i);
+                    msg += "...";
                 }
                 else {
-                    msg = msg+title.charAt(i);
+                    msg += title.charAt(i);
+                    break;
                 }
             }
             return msg;
