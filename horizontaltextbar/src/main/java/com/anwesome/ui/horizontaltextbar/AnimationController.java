@@ -21,6 +21,12 @@ public class AnimationController {
         if(isAnimated) {
             for(TextBar tappedBar:tappedBars) {
                 tappedBar.update();
+                if(tappedBar.stopped()) {
+                    tappedBars.remove(tappedBar);
+                    if(tappedBars.size() == 0) {
+                        isAnimated = false;
+                    }
+                }
             }
             try {
                 Thread.sleep(50);
@@ -32,16 +38,15 @@ public class AnimationController {
         }
     }
     public void startAnimating(float x,float y) {
-        if(!isAnimated) {
-            for(TextBar textBar:textBars) {
-                if(textBar.handleTap(x,y)) {
-                    boolean firstTextBar = textBar.handleTap(x,y);
-                    tappedBars.add(textBar);
-                    if(firstTextBar) {
-                        isAnimated = true;
-                        view.postInvalidate();
-                    }
+        for(TextBar textBar:textBars) {
+            if(textBar.handleTap(x,y)) {
+                boolean firstTextBar = textBar.handleTap(x,y);
+                tappedBars.add(textBar);
+                if(firstTextBar) {
+                    isAnimated = true;
+                    view.postInvalidate();
                 }
+                break;
             }
         }
     }

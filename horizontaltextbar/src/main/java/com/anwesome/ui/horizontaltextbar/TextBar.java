@@ -45,60 +45,66 @@ public class TextBar {
     public void update() {
         deg+=18*dir;
         scale+=0.2f*dir;
-        if(deg>=90 && deg<=0) {
+        if(deg>=90 || deg<=0) {
             dir = 0;
         }
     }
     private class TextBarButton {
-        public float size,deg = 0;
+        public float size;
         public TextBarButton(float size) {
             this.size = size;
         }
         public void draw(Canvas canvas,Paint paint) {
-            paint.setColor(barColor);
-            canvas.drawRect(new RectF(-size/2,-size/2,size/2,size/2),paint);
-            paint.setStrokeWidth(size/10);
-            paint.setColor(Color.BLACK);
             canvas.save();
             canvas.translate(size/2,size/2);
+            paint.setColor(barColor);
+            canvas.drawRect(new RectF(-size/2,-size/2,size/2,size/2),paint);
+            canvas.save();
             canvas.rotate(deg);
+            paint.setStrokeWidth(size/10);
+            paint.setColor(Color.BLACK);
             for(int i=0;i<2;i++) {
                 canvas.save();
-                canvas.rotate(90);
+                canvas.rotate(i*90);
                 canvas.drawLine(-size/3,0,size/3,0,paint);
                 canvas.restore();
             }
             canvas.restore();
+            canvas.restore();
         }
         public boolean handleTap(float tapX,float tapY) {
-            boolean condition =  tapX>=x-size/2 && tapX<=x+size/2 && tapY>=x-size/2 && tapY>=y-size/2 && tapY<=y+size/2;
+            boolean condition =  tapX>=x-size/2 && tapX<=x+size/2 && tapY>=y-size/2 && tapY<=y+size/2;
             return condition;
         }
     }
     private class TextBarTitle {
         public void draw(Canvas canvas,Paint paint) {
+            paint.setColor(barColor);
             canvas.save();
             canvas.translate(w/2,w/2);
             canvas.rotate(90);
-            canvas.scale(1,scale);
+            canvas.scale(scale,1);
             canvas.drawRect(new RectF(w/2,-w/2,h-w/2,w/2),paint);
             paint.setTextSize(w/3);
             String adjustedTitle = adjustString(paint);
+            paint.setColor(Color.WHITE);
             canvas.drawText(adjustedTitle,(h-w)/2-paint.measureText(adjustedTitle)/2,paint.getTextSize()/4,paint);
             canvas.restore();
         }
         private String adjustString(Paint paint) {
             String msg = "";
             for(int i=0;i<title.length();i++) {
-                if(paint.measureText(msg+title.charAt(i)) > 2*w/3) {
+                if(paint.measureText(msg+title.charAt(i)) > 2*(h-w)/3) {
                     msg += "...";
                 }
                 else {
                     msg += title.charAt(i);
-                    break;
                 }
             }
             return msg;
         }
+    }
+    public int hashCode() {
+        return (int)(x+y)+title.hashCode();
     }
 }
