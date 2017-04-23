@@ -14,6 +14,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 public class HorizontalTextBarView extends View {
     private float maxW = 0;
+    private Screen screen = new Screen();
     private List<TextBar> textBars = new ArrayList<>();
     private AnimationController animationController;
     private int time = 0;
@@ -37,9 +38,12 @@ public class HorizontalTextBarView extends View {
             maxW+=2*gap+3*gap/2;
 
         }
+        canvas.save();
+        canvas.translate(screen.x,0);
         for(TextBar textBar:textBars) {
             textBar.draw(canvas,paint);
         }
+        canvas.restore();
         time++;
         if(animationController!=null) {
             animationController.animate();
@@ -50,5 +54,8 @@ public class HorizontalTextBarView extends View {
             animationController.startAnimating(event.getX(),event.getY());
         }
         return true;
+    }
+    private class Screen {
+        private float x = 0;
     }
 }
