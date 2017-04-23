@@ -85,7 +85,7 @@ public class TextBar {
             canvas.translate(w/2,w/2);
             canvas.rotate(90);
             Path path = new Path();
-            path.addRect(new RectF(w/2,w/2,w/2+(h-w)*scale,w/2), Path.Direction.CCW);
+            path.addRect(new RectF(w/2,-w/2,w/2+(h-w)*scale,w/2), Path.Direction.CCW);
             canvas.clipPath(path);
             canvas.drawPath(path,paint);
             paint.setTextSize(w/3);
