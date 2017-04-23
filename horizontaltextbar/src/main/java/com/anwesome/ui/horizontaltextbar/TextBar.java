@@ -13,6 +13,7 @@ public class TextBar {
     private float x,y,w,h,dir = 0,scale = 0,deg = 0;
     private int barColor = Color.parseColor("#BDBDBD");
     private TextBarButton textBarButton;
+    private TextBarTitle textBarTitle;
     public TextBar(String title) {
         this.title = title;
     }
@@ -22,11 +23,13 @@ public class TextBar {
         this.w = w;
         this.h = h;
         textBarButton = new TextBarButton(w);
+        textBarTitle = new TextBarTitle();
     }
     public void draw(Canvas canvas, Paint paint) {
         canvas.save();
         canvas.translate(x,y);
         textBarButton.draw(canvas,paint);
+        textBarTitle.draw(canvas,paint);
         canvas.restore();
     }
     public boolean handleTap(float x,float y) {
@@ -70,6 +73,31 @@ public class TextBar {
         public boolean handleTap(float tapX,float tapY) {
             boolean condition =  tapX>=x-size/2 && tapX<=x+size/2 && tapY>=x-size/2 && tapY>=y-size/2 && tapY<=y+size/2;
             return condition;
+        }
+    }
+    private class TextBarTitle {
+        public void draw(Canvas canvas,Paint paint) {
+            canvas.save();
+            canvas.translate(w/2,w/2);
+            canvas.rotate(90);
+            canvas.scale(1,scale);
+            canvas.drawRect(new RectF(w/2,-w/2,h-w/2,w/2),paint);
+            paint.setTextSize(w/3);
+            String adjustedTitle = adjustString(paint);
+            canvas.drawText(adjustedTitle,(h-w)/2-paint.measureText(adjustedTitle)/2,paint.getTextSize()/4,paint);
+            canvas.restore();
+        }
+        private String adjustString(Paint paint) {
+            String msg = "";
+            for(int i=0;i<title.length();i++) {
+                if(paint.measureText(msg+title.charAt(i)) > 2*w/3) {
+                    msg += title.charAt(i);
+                }
+                else {
+                    msg = msg+title.charAt(i);
+                }
+            }
+            return msg;
         }
     }
 }
