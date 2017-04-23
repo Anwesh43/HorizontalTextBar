@@ -73,7 +73,7 @@ public class TextBar {
             canvas.restore();
         }
         public boolean handleTap(float tapX,float tapY) {
-            boolean condition =  tapX>=x-size/2 && tapX<=x+size/2 && tapY>=y-size/2 && tapY<=y+size/2;
+            boolean condition =  tapX>=x && tapX<=x+size && tapY>=y && tapY<=y+size;
             return condition;
         }
     }
