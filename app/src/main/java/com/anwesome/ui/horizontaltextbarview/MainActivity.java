@@ -3,6 +3,7 @@ package com.anwesome.ui.horizontaltextbarview;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.anwesome.ui.horizontaltextbar.HorizontalTextBarList;
 import com.anwesome.ui.horizontaltextbar.HorizontalTextBarView;
 
 public class MainActivity extends AppCompatActivity {
@@ -10,11 +11,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        HorizontalTextBarView horizontalTextBarView = new HorizontalTextBarView(this);
-        horizontalTextBarView.addTextBar("Hello");
-        horizontalTextBarView.addTextBar("Joke");
-        horizontalTextBarView.addTextBar("Stir");
-        horizontalTextBarView.addTextBar("Cross");
-        setContentView(horizontalTextBarView);
+        HorizontalTextBarList horizontalTextBarList = new HorizontalTextBarList(this);
+        horizontalTextBarList.addTextBar("Hello");
+        horizontalTextBarList.addTextBar("Joke");
+        horizontalTextBarList.addTextBar("Stir");
+        horizontalTextBarList.addTextBar("Cross");
+        horizontalTextBarList.addTextBar("Hello");
+        horizontalTextBarList.addTextBar("Joke");
+        horizontalTextBarList.addTextBar("Stir");
+        horizontalTextBarList.addTextBar("Cross");
+        horizontalTextBarList.addTextBar("Hello");
+        horizontalTextBarList.addTextBar("Joke");
+        horizontalTextBarList.addTextBar("Stir");
+        horizontalTextBarList.addTextBar("Cross");
+        horizontalTextBarList.show();
     }
 }
