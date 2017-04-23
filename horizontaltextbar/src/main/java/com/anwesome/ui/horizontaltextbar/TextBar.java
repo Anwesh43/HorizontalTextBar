@@ -14,10 +14,13 @@ public class TextBar {
     private float x,y,w,h,dir = 0,scale = 0,deg = 0;
     private int barColor = Color.parseColor("#BDBDBD");
     private TextBarButton textBarButton;
+    private OnExpandListener onExpandListener;
     private TextBarTitle textBarTitle;
-    public TextBar(String title) {
+    public TextBar(String title,OnExpandListener onExpandListener) {
         this.title = title;
+        this.onExpandListener = onExpandListener;
     }
+
     public void setDimension(float x,float y,float w,float h) {
         this.x = x;
         this.y = y;
@@ -41,7 +44,16 @@ public class TextBar {
         return condition;
     }
     public boolean stopped() {
-        return dir == 0;
+        boolean condition =  dir == 0;
+        if(condition && onExpandListener!=null) {
+            if(deg >= 45) {
+                onExpandListener.onExpand();
+            }
+            else if(deg <= 0) {
+                onExpandListener.onShrink();
+            }
+        }
+        return condition;
     }
     public void update() {
         deg+=9*dir;

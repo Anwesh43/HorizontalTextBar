@@ -26,8 +26,8 @@ public class HorizontalTextBarView extends View {
         super(context);
         gestureDetector = new GestureDetector(context,new ScreenGestureListener());
     }
-    public void addTextBar(String title) {
-        textBars.add(new TextBar(title));
+    public void addTextBar(String title,OnExpandListener onExpandListener) {
+        textBars.add(new TextBar(title,onExpandListener));
     }
     public void onDraw(Canvas canvas) {
         w = canvas.getWidth();

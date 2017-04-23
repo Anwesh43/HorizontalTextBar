@@ -13,9 +13,9 @@ public class HorizontalTextBarList {
         this.activity = activity;
         this.horizontalTextBarView = new HorizontalTextBarView(activity);
     }
-    public void addTextBar(String title) {
+    public void addTextBar(String title,OnExpandListener onExpandListener) {
         if(!isShown) {
-            horizontalTextBarView.addTextBar(title);
+            horizontalTextBarView.addTextBar(title,onExpandListener);
         }
     }
     public void show() {
