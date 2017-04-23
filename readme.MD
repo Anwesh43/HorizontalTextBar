@@ -33,4 +33,4 @@
 
 #### Demo
 
-<img src="https://github.com/Anwesh43/HorizontalTextBar/commit/66e928b1cc35763180892bfccef5034ec2afc188#diff-359e4030464d6d2c79d4380d756d5562" alt="screencast of demo" width="300px" height="500px">
+<img src="https://github.com/Anwesh43/HorizontalTextBar/blob/master/screencast/HorizontalTextBar.gif" alt="screencast of demo" width="300px" height="500px">
