@@ -3,6 +3,7 @@ package com.anwesome.ui.horizontaltextbar;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.RectF;
 
 /**
@@ -43,9 +44,9 @@ public class TextBar {
         return dir == 0;
     }
     public void update() {
-        deg+=18*dir;
+        deg+=9*dir;
         scale+=0.2f*dir;
-        if(deg>=90 || deg<=0) {
+        if(deg>=45 || deg<=0) {
             dir = 0;
         }
     }
@@ -62,7 +63,7 @@ public class TextBar {
             canvas.save();
             canvas.rotate(deg);
             paint.setStrokeWidth(size/10);
-            paint.setColor(Color.BLACK);
+            paint.setColor(Color.WHITE);
             for(int i=0;i<2;i++) {
                 canvas.save();
                 canvas.rotate(i*90);
@@ -83,8 +84,10 @@ public class TextBar {
             canvas.save();
             canvas.translate(w/2,w/2);
             canvas.rotate(90);
-            canvas.scale(scale,1);
-            canvas.drawRect(new RectF(w/2,-w/2,h-w/2,w/2),paint);
+            Path path = new Path();
+            path.addRect(new RectF(w/2,w/2,w/2+(h-w)*scale,w/2), Path.Direction.CCW);
+            canvas.clipPath(path);
+            canvas.drawPath(path,paint);
             paint.setTextSize(w/3);
             String adjustedTitle = adjustString(paint);
             paint.setColor(Color.WHITE);
